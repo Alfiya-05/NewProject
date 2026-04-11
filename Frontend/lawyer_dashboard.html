@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lawyer Dashboard | WizardofJustice</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body style="background: var(--bg-secondary);">
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <i class="ph ph-scales"></i>
+        <span>Wizard of Justice</span>
+      </div>
+      <div class="nav-actions">
+        <span class="badge" style="background: white;"><i class="ph ph-briefcase"></i> Legal Workspace</span>
+        <a href="index.html" class="btn btn-outline" style="padding: 0.4rem 1rem;">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="app-container" style="max-width: 1200px; padding-top: 2rem;">
+    <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+      <h2 style="font-size: 2.5rem;">Lawyer Dashboard</h2>
+      <p>Manage open requests, submit evidence, and monitor your active defense/prosecution load.</p>
+    </div>
+
+    <div class="dashboard-grid">
+      <aside class="dashboard-sidebar">
+        <ul>
+          <li><a href="#requests" class="active"><i class="ph ph-tray" style="margin-right: 0.5rem;"></i> Pending Requests</a></li>
+          <li><a href="#active-cases"><i class="ph ph-folder-open" style="margin-right: 0.5rem;"></i> Active Cases</a></li>
+          <li><a href="#evidence"><i class="ph ph-file-arrow-up" style="margin-right: 0.5rem;"></i> Upload Evidence</a></li>
+          <li><a href="#insights"><i class="ph ph-brain" style="margin-right: 0.5rem;"></i> Case AI Insights</a></li>
+        </ul>
+      </aside>
+
+      <div class="dashboard-main">
+        
+        <!-- Pending Requests -->
+        <section class="panel" id="requests">
+          <div class="panel-header">
+             <h3><i class="ph-duotone ph-bell-ringing"></i> Pending Case Requests</h3>
+             <span class="badge danger"><i class="ph ph-warning-circle"></i> Action Required</span>
+          </div>
+          <div class="list-item" style="border-left: 4px solid var(--danger);">
+            <div class="d-flex justify-between">
+              <div>
+                <h4 style="margin-bottom: 0.25rem;">Fraud Dispute (Client: Amit Kumar)</h4>
+                <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted);">Received: 2 hrs ago</p>
+              </div>
+              <span class="badge primary"><i class="ph ph-clock"></i> Deadline: 2 Days</span>
+            </div>
+            <div style="background: var(--bg-secondary); padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+              <p style="margin: 0;"><strong>Context:</strong> Section 420 dispute regarding non-delivery of services and breach of verbal contract. Estimated duration: 6-12 months.</p>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+              <button class="btn btn-primary"><i class="ph ph-check-circle"></i> Accept Case</button>
+              <button class="btn btn-outline" style="border-color: var(--danger); color: var(--danger);"><i class="ph ph-x-circle"></i> Reject</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Active Cases -->
+        <section class="panel" id="active-cases">
+          <div class="panel-header">
+            <h3><i class="ph-duotone ph-folders"></i> My Active Cases</h3>
+            <span class="badge" style="background: white;">2 Ongoing</span>
+          </div>
+          <div class="grid-2">
+            <div class="list-item" style="margin: 0; background: var(--primary-light); border-color: rgba(59, 130, 246, 0.3);">
+              <div class="d-flex justify-between" style="margin-bottom: 0.5rem;">
+                <h4 style="margin: 0;">Case #10294</h4>
+                <i class="ph ph-buildings" style="font-size: 1.25rem; color: var(--primary);"></i>
+              </div>
+              <p style="font-weight: 500; font-size: 0.95rem; color: var(--text-dark);">Property Dispute</p>
+              <div style="margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 0.85rem; color: var(--primary); font-weight: 600;"><i class="ph-fill ph-circle"></i> Awaiting Evidence</span>
+              </div>
+            </div>
+            <div class="list-item" style="margin: 0; background: white;">
+               <div class="d-flex justify-between" style="margin-bottom: 0.5rem;">
+                <h4 style="margin: 0;">Case #9833</h4>
+                <i class="ph ph-scroll" style="font-size: 1.25rem; color: var(--text-muted);"></i>
+              </div>
+              <p style="font-weight: 500; font-size: 0.95rem; color: var(--text-dark);">Breach of Contract</p>
+              <div style="margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 0.85rem; color: var(--warning); font-weight: 600;"><i class="ph-fill ph-circle"></i> Hearing Oct 12</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Insights -->
+        <section class="panel" id="insights">
+          <div class="panel-header">
+            <h3><i class="ph-duotone ph-magic-wand"></i> AI Summary: Case #10294</h3>
+            <span class="badge primary"><i class="ph ph-sparkle"></i> Analyzed</span>
+          </div>
+          <div class="list-item" style="background: var(--bg-secondary); border: none;">
+            <p style="margin: 0; line-height: 1.8;"><strong>Synopsis:</strong> Plaintiff alleges breach of property contract. The submitted agreement lacks the standard non-compete clause, which weakens the defense argument. Historical precedent suggests a <strong>75% settlement rate</strong> prior to full trial in your jurisdiction based on similar documentation.</p>
+          </div>
+        </section>
+
+        <!-- Upload Evidence -->
+        <section class="panel" id="evidence">
+          <div class="panel-header">
+             <h3><i class="ph-duotone ph-file-arrow-up"></i> Upload Case Evidence</h3>
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-dark);">Select Associated File:</label>
+            <div style="position: relative;">
+              <select style="width: 100%; padding: 0.8rem; border: 1px solid var(--border); border-radius: 8px; appearance: none; background: #fff; font-family: inherit; font-size: 1rem; color: var(--text-dark);">
+                <option>Case #10294 (Property Dispute)</option>
+                <option>Case #9833 (Breach of Contract)</option>
+              </select>
+              <i class="ph ph-caret-down" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-muted);"></i>
+            </div>
+          </div>
+          <div class="upload-box" id="drop-zone" style="margin-bottom: 0; background: #fff;">
+            <div class="upload-icon-wrapper"><i class="ph-duotone ph-cloud-arrow-up"></i></div>
+            <h3>Drag & Drop evidence files</h3>
+            <p>Affidavits, photos, statements, and counter-FIRs.</p>
+            <input type="file" id="file-input" hidden>
+            <button class="btn btn-outline" style="margin-top: 1rem;"><i class="ph ph-folder-open"></i> Browse Files</button>
+          </div>
+        </section>
+        
+      </div>
+    </div>
+  </main>
+
+  <footer style="background: transparent; border: none;">
+    <div class="footer-logo"><i class="ph-fill ph-scales"></i><span>Wizard of Justice</span></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
