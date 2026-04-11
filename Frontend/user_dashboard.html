@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard | WizardofJustice</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body style="background: var(--bg-secondary);">
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <i class="ph ph-scales"></i>
+        <span>Wizard of Justice</span>
+      </div>
+      <div class="nav-actions">
+        <span class="badge" style="background: white;"><i class="ph ph-user"></i> Citizen Profile</span>
+        <a href="index.html" class="btn btn-outline" style="padding: 0.4rem 1rem;">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="app-container" style="max-width: 1200px; padding-top: 2rem;">
+    <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+      <h2 style="font-size: 2.5rem;">Citizen Dashboard</h2>
+      <p>Manage your FIRs, find representation, and track your case status.</p>
+    </div>
+
+    <div class="dashboard-grid">
+      <!-- Sidebar Navigation -->
+      <aside class="dashboard-sidebar">
+        <ul>
+          <li><a href="#upload" class="active"><i class="ph ph-upload-simple" style="margin-right: 0.5rem;"></i> Upload FIR</a></li>
+          <li><a href="#insights"><i class="ph ph-lightbulb" style="margin-right: 0.5rem;"></i> AI Insights & Penalty</a></li>
+          <li><a href="#similar"><i class="ph ph-files" style="margin-right: 0.5rem;"></i> Similar Cases</a></li>
+          <li><a href="#lawyers"><i class="ph ph-users" style="margin-right: 0.5rem;"></i> Lawyer Marketplace</a></li>
+          <li><a href="#track"><i class="ph ph-clock" style="margin-right: 0.5rem;"></i> Track Case</a></li>
+        </ul>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="dashboard-main">
+        
+        <!-- Summary Cards -->
+        <section class="grid-3" id="summary">
+          <div class="panel text-center" style="padding: 1.5rem;">
+            <p style="color: var(--text-muted); font-weight: 500;">Active Cases</p>
+            <p style="font-size: 3rem; color: var(--primary); margin: 0; font-weight: 700; line-height: 1;">1</p>
+          </div>
+          <div class="panel text-center" style="padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <p style="color: var(--text-muted); font-weight: 500; margin-bottom: 0.5rem;">Current Status</p>
+            <div><span class="badge primary"><i class="ph ph-magnifying-glass"></i> Seeking Lawyer</span></div>
+          </div>
+          <div class="panel text-center" style="padding: 1.5rem;">
+            <p style="color: var(--text-muted); font-weight: 500;">Docs Analyzed</p>
+            <p style="font-size: 3rem; color: var(--text-dark); margin: 0; font-weight: 700; line-height: 1;">3</p>
+          </div>
+        </section>
+
+        <!-- Upload Panel -->
+        <section class="panel" id="upload">
+          <div class="panel-header">
+             <h3><i class="ph-duotone ph-file-arrow-up"></i> Upload FIR / Initial Complaint</h3>
+          </div>
+          <div class="upload-box" id="drop-zone" style="margin-bottom: 0; background: #fff;">
+            <div class="upload-icon-wrapper"><i class="ph-duotone ph-cloud-arrow-up"></i></div>
+            <h3>Drag & Drop your FIR document</h3>
+            <p>Supported formats: PDF or Scanned Images. Max 50MB.</p>
+            <input type="file" id="file-input" hidden>
+            <button class="btn btn-outline" style="margin-top: 1rem;"><i class="ph ph-folder-open"></i> Browse Files</button>
+          </div>
+        </section>
+
+        <!-- Insights -->
+        <section class="panel" id="insights">
+          <div class="panel-header">
+            <h3><i class="ph-duotone ph-brain"></i> AI Insights: Clause & Punishment</h3>
+          </div>
+          <div class="list-item" style="border-left: 4px solid var(--primary); background: #f8fafc;">
+            <p style="margin:0;"><strong>Identified Clauses:</strong> Section 420 (Cheating and dishonestly inducing delivery of property).</p>
+          </div>
+          
+          <div class="risk-item" style="margin-top: 1rem;">
+            <span class="risk-badge"><i class="ph-bold ph-warning-circle"></i> High Penalty Warning</span>
+            <p style="margin: 0; font-weight: 500; color: var(--text-dark);">Imprisonment for up to 7 years, and also liable to fine.</p>
+          </div>
+        </section>
+
+        <!-- Similar Cases Highlights -->
+        <section class="panel" id="similar">
+          <div class="panel-header">
+            <h3><i class="ph-duotone ph-copy"></i> Similar Cases Highlights</h3>
+            <span class="badge primary"><i class="ph ph-sparkle"></i> AI Matched</span>
+          </div>
+          <div class="list-item" style="margin-bottom: 0;">
+            <div class="d-flex justify-between">
+              <h4>State vs. Sharma Enterprise (2021)</h4>
+              <span class="badge">Resolved</span>
+            </div>
+            <p style="margin-top: 0.5rem;">Dispute regarding breach of contract and property delivery under Section 420. Very similar case parameters to your uploaded FIR.</p>
+            <div style="background: rgb(241, 245, 249); padding: 0.75rem; border-radius: 4px; border: 1px solid #e2e8f0; margin-top: 1rem;">
+              <p style="font-size: 0.9rem; color: var(--text-dark); font-weight: 500; margin: 0;">Outcome: Settled out of court with restitution.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Lawyer Marketplace -->
+        <section class="panel" id="lawyers">
+          <div class="panel-header">
+            <h3><i class="ph-duotone ph-users-three"></i> Lawyer Marketplace</h3>
+          </div>
+          <div class="grid-2">
+            <div class="list-item" style="margin: 0;">
+              <div class="d-flex" style="margin-bottom: 1rem;">
+                <div class="avatar" style="background: var(--primary-light); color: var(--primary); width: 48px; height: 48px; font-size: 1.5rem;"><i class="ph ph-user"></i></div>
+                <div>
+                  <h4 style="margin:0;">Advocate R. Mehta</h4>
+                  <p style="font-size: 0.85rem; color: var(--text-muted); margin:0;">Specialization: Corporate Fraud</p>
+                </div>
+              </div>
+              <button class="btn btn-primary" style="width: 100%; padding: 0.6rem;">Select & Request</button>
+            </div>
+            <div class="list-item" style="margin: 0;">
+              <div class="d-flex" style="margin-bottom: 1rem;">
+                <div class="avatar" style="background: var(--primary-light); color: var(--primary); width: 48px; height: 48px; font-size: 1.5rem;"><i class="ph ph-user"></i></div>
+                <div>
+                  <h4 style="margin:0;">Advocate S. Kapoor</h4>
+                  <p style="font-size: 0.85rem; color: var(--text-muted); margin:0;">Specialization: Criminal Defense</p>
+                </div>
+              </div>
+              <button class="btn btn-outline" style="width: 100%; padding: 0.6rem;">Select & Request</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Case Timeline -->
+        <section class="panel" id="track">
+          <div class="panel-header">
+            <h3><i class="ph-duotone ph-path"></i> Track Case Progress</h3>
+          </div>
+          
+          <div class="timeline-visual" style="margin: 2rem auto;">
+            <div class="timeline-step completed">
+              <div class="step-icon"><i class="ph ph-file-text"></i></div>
+              <p>Analyzed</p>
+            </div>
+            <div class="timeline-line active-line"></div>
+            
+            <div class="timeline-step active">
+              <div class="step-icon"><i class="ph ph-users"></i></div>
+              <p>Lawyer Search</p>
+            </div>
+            <div class="timeline-line"></div>
+            
+            <div class="timeline-step">
+              <div class="step-icon"><i class="ph ph-gavel"></i></div>
+              <p>Hearing</p>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <footer style="background: transparent; border: none;">
+    <div class="footer-logo"><i class="ph-fill ph-scales"></i><span>Wizard of Justice</span></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
