@@ -25,7 +25,11 @@ jobs:
         run: |
           pwd
           ls -la
-
+          
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm install
+        
       # 4. Install dependencies (simple, no drama)
       - name: Install dependencies
         run: npm install
