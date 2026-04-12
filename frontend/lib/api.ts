@@ -2,7 +2,7 @@ import axios from 'axios';
 import { auth } from './firebase';
 
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://nyaya-setu-peov.onrender.com',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://newproject-uqs2.onrender.com',
   headers: { 'Content-Type': 'application/json' },
 });
 
