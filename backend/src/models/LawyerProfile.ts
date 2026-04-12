@@ -3,6 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface ILawyerProfile extends Document {
   userId: mongoose.Types.ObjectId;
   barNumber: string;
+  post?: string; // e.g. 'Senior Advocate – Supreme Court'
   specialisations: string[];
   courtIds: string[];
   experienceYears: number;
@@ -21,6 +22,7 @@ const LawyerProfileSchema = new Schema<ILawyerProfile>(
   {
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
     barNumber: { type: String, required: true },
+    post: String,
     specialisations: [String],
     courtIds: [String],
     experienceYears: { type: Number, default: 0 },

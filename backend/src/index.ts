@@ -20,12 +20,31 @@ import hearingsRoutes from './routes/hearings';
 import aiRoutes from './routes/ai';
 import adminRoutes from './routes/admin';
 import notificationsRoutes from './routes/notifications';
+import seedRoutes from './routes/seed';
 
 const app = express();
 
+// Log environment state for debugging
+console.log('--- Environment Check ---');
+console.log(`FRONTEND_URL: ${process.env.FRONTEND_URL}`);
+console.log(`PORT: ${process.env.PORT}`);
+console.log('------------------------');
+
 // Security & parsing
 app.use(helmet());
-app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:3000', credentials: true }));
+app.use(cors({
+  origin: (origin, callback) => {
+    // Allow requests from any localhost port (for development flexibility)
+    const allowed = !origin || /^http:\/\/localhost:\d+$/.test(origin);
+    if (allowed) {
+      callback(null, true);
+    } else {
+      console.warn(`CORS blocked origin: ${origin}`);
+      callback(new Error(`CORS: Origin ${origin} not allowed`));
+    }
+  },
+  credentials: true,
+}));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(apiLimiter);
@@ -40,6 +59,7 @@ app.use('/api/hearings', hearingsRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/notifications', notificationsRoutes);
+app.use('/api/seed', seedRoutes);
 
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', service: 'NyayaSetu API', timestamp: new Date() });

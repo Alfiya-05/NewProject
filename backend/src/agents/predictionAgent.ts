@@ -66,7 +66,7 @@ export async function predictTimeline(
 ): Promise<TimelinePrediction> {
   const response = await openrouterClient.chat.completions.create({
     model: AI_MODEL,
-    max_tokens: 100,
+    max_tokens: 400,
     messages: [
       {
         role: 'user',

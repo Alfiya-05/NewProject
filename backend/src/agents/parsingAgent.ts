@@ -13,7 +13,7 @@ export interface ParsedFIR {
 export async function parseFIR(firText: string): Promise<ParsedFIR> {
   const response = await openrouterClient.chat.completions.create({
     model: AI_MODEL,
-    max_tokens: 100,
+    max_tokens: 700,
     messages: [
       {
         role: 'user',
@@ -27,12 +27,13 @@ Return ONLY a valid JSON object with these exact fields:
   "parties": ["complainant name", "accused name"],
   "date": "DD/MM/YYYY",
   "location": "full location string",
-  "offenceDescription": "plain text description of the offence",
+  "offenceDescription": "plain text description of the offence. If the text is messy or unstructured, summarize all context here.",
   "firNumber": "FIR number if present or null",
   "policeStation": "police station name if present or null",
   "ipcSectionsRaw": ["any IPC/BNS sections mentioned in the document"]
 }
 
+If the document lacks certain fields, use "Unknown" or null. Do not leave the JSON empty. If no text is provided, state "No text was successfully extracted from the document."
 Return nothing else — only the JSON object.`,
       },
     ],

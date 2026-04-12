@@ -10,6 +10,7 @@ import { findSimilarCases } from '../agents/precedentAgent';
 import { generateCaseNumber } from '../utils/generateUID';
 import { auditLogger } from '../utils/auditLogger';
 import { uploadToGridFS } from '../config/gridfs';
+const pdfParse = require('pdf-parse');
 
 const router = Router();
 
@@ -28,11 +29,24 @@ router.post(
       return;
     }
 
-    // Extract text from request body or use filename as placeholder
-    // In production, integrate Tesseract OCR or Azure Document Intelligence for PDF/image text extraction
-    const firText =
-      (req.body.firText as string) ||
-      `FIR Document uploaded: ${file.originalname}. Content extraction requires OCR integration.`;
+    // Extract text from request body natively OR from the uploaded document buffer directly
+    let firText = req.body.firText as string || '';
+
+    if (!firText) {
+      if (file.mimetype === 'application/pdf') {
+        try {
+          const pdfData = await pdfParse(file.buffer);
+          firText = pdfData.text;
+        } catch (e) {
+          console.error('PDF parsing error:', e);
+          firText = `Failed to parse PDF document.`;
+        }
+      } else if (file.mimetype === 'text/plain') {
+        firText = file.buffer.toString('utf-8');
+      } else {
+        firText = `FIR Document uploaded: ${file.originalname}. Native text extraction is unsupported for this format.`;
+      }
+    }
 
     try {
       // Upload file buffer to GridFS

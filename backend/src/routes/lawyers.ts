@@ -11,11 +11,25 @@ const router = Router();
 // GET /api/lawyers — marketplace listing
 router.get('/', authenticate, async (_req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const profiles = await LawyerProfile.find({ isAvailable: true, isBarVerified: true })
-      .populate('userId', 'profile email systemUid')
+    const filter = process.env.NODE_ENV === 'production'
+      ? { isAvailable: true, isBarVerified: true }
+      : { isAvailable: true }; // show demo lawyers in dev
+
+    const profiles = await LawyerProfile.find(filter)
+      .populate('userId', 'profile email systemUid firebaseUid')
       .sort({ rating: -1 });
 
-    res.json({ lawyers: profiles });
+    // Filter out mock/demo lawyers created by seed
+    const registeredLawyers = profiles.filter((p) => {
+      const u = p.userId as any;
+      if (!u) return false;
+      if (u.firebaseUid && typeof u.firebaseUid === 'string' && u.firebaseUid.startsWith('demo_')) {
+        return false;
+      }
+      return true;
+    });
+
+    res.json({ lawyers: registeredLawyers });
   } catch (error) {
     console.error('Get lawyers error:', error);
     res.status(500).json({ error: 'Failed to fetch lawyers' });
@@ -59,7 +73,11 @@ router.post('/request', authenticate, async (req: AuthRequest, res: Response): P
       return;
     }
 
-    const caseDoc = await Case.findOne({ _id: caseId, citizenId: user._id });
+    const caseDoc = await Case.findOneAndUpdate(
+      { _id: caseId, citizenId: user._id },
+      { lawyerId: lawyer._id, status: 'unassigned', lastActivityAt: new Date() },
+      { new: true }
+    );
     if (!caseDoc) {
       res.status(404).json({ error: 'Case not found or access denied' });
       return;
@@ -107,9 +125,20 @@ router.post(
       }
 
       if (action === 'accept') {
+        // Always assign to the designated presiding judge
+        const DESIGNATED_JUDGE_EMAIL = 'aayamparkar096@gmail.com';
+        const designatedJudge = await User.findOne({ email: DESIGNATED_JUDGE_EMAIL, role: 'judge' });
+
         await Case.findByIdAndUpdate(req.params.caseId, {
           lawyerId: user._id,
+          ...(designatedJudge ? { judgeId: designatedJudge._id } : {}),
           status: 'active',
+          lastActivityAt: new Date(),
+        });
+      } else {
+        await Case.findByIdAndUpdate(req.params.caseId, {
+          $unset: { lawyerId: "" },
+          status: 'unassigned',
           lastActivityAt: new Date(),
         });
       }

@@ -7,6 +7,7 @@ const ALLOWED_MIME_TYPES = [
   "video/mp4",
   "application/msword",
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "text/plain",
 ];
 
 export const upload = multer({
@@ -18,7 +19,7 @@ export const upload = multer({
     } else {
       cb(
         new Error(
-          "File type not allowed. Allowed types: PDF, JPG, PNG, MP4, DOC, DOCX"
+          "File type not allowed. Allowed types: PDF, TXT, DOC, DOCX, JPG, PNG, MP4"
         )
       );
     }
