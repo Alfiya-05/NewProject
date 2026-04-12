@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* NyayaSetu Government Design System - Modern Light Theme */
+@layer base {
+  .theme {
+    --font-heading: var(--font-serif);
+    --font-sans: var(--font-sans);
+  }
+
+  :root {
+    --navy: 217 60% 26%; /* #1B3A6B */
+    --navy-foreground: 0 0% 100%;
+    --saffron: 41 100% 47%; /* #F0A500 */
+    --saffron-dark: 37 100% 39%; /* #C87A00 */
+    --gov-green: 153 40% 30%; /* #2D6A4F */
+    
+    --background: 45 15% 98%; /* Warm, clean off-white #F8F7F2 */
+    --foreground: 217 30% 15%; /* Very dark navy for text */
+    
+    --card: 0 0% 100%;
+    --card-foreground: 217 30% 15%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 217 30% 15%;
+    
+    --primary: 217 60% 26%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 41 100% 47%;
+    --secondary-foreground: 41 10% 15%;
+    
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 16% 47%;
+    
+    --accent: 210 20% 96%;
+    --accent-foreground: 217 60% 26%;
+    
+    --destructive: 0 84% 60%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 217 60% 26%;
+    
+    --radius: 0.75rem; /* More modern rounding */
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground tracking-tight;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Badge Utilities */
+  .badge-active {
+    @apply bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded border border-green-200 shadow-sm;
+  }
+
+  .badge-pending {
+    @apply bg-amber-100 text-amber-800 text-xs font-medium px-2 py-0.5 rounded border border-amber-200 shadow-sm;
+  }
+
+  .badge-urgent {
+    @apply bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded border border-red-200 shadow-sm;
+  }
+
+  .badge-immutable {
+    @apply bg-gray-100 text-gray-700 text-xs font-medium px-2 py-0.5 rounded border border-gray-200 shadow-sm;
+  }
+
+  /* Modern Glassmorphism Utilities */
+  .glass-panel {
+    @apply bg-white/80 backdrop-blur-xl border border-white/60 shadow-sm;
+  }
+
+  .glass-card {
+    @apply bg-white/85 backdrop-blur-xl border border-slate-200/60 shadow-[0_4px_20px_rgba(0,0,0,0.03)] rounded-2xl overflow-hidden hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] hover:-translate-y-0.5 transition-all duration-500;
+  }
+  
+  .glass-nav-item {
+    @apply relative overflow-hidden bg-transparent hover:bg-slate-100/50 backdrop-blur-sm transition-all duration-300;
+  }
+
+  /* Background Mesh */
+  .bg-mesh {
+    background-color: #f8f7f2;
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(217, 60%, 26%, 0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(41, 100%, 47%, 0.06) 0px, transparent 50%),
+      radial-gradient(at 50% 100%, hsla(153, 40%, 30%, 0.04) 0px, transparent 50%);
+  }
+}
