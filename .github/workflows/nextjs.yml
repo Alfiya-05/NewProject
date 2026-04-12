@@ -20,6 +20,13 @@ jobs:
         with:
           node-version: 18
 
+      - name: Full debug
+        run: |
+         echo "CURRENT DIR:"
+         pwd
+         echo "FILES:"
+         ls -R
+
       # 3. Debug (so you NEVER get lost again)
       - name: Debug directory
         run: |
