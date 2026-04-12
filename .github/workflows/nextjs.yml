@@ -1,8 +1,8 @@
-name: Node CI
+name: Next.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
 
 jobs:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout repo (MANDATORY)
+      # 1. Checkout repo
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -19,32 +19,28 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
 
-      - name: Full debug
+      # 3. Debug (optional but smart)
+      - name: Debug structure
         run: |
-         echo "CURRENT DIR:"
-         pwd
-         echo "FILES:"
-         ls -R
-
-      # 3. Debug (so you NEVER get lost again)
-      - name: Debug directory
-        run: |
-          pwd
+          echo "Root:"
           ls -la
-          
+          echo "Frontend:"
+          ls -la frontend
+
+      # 4. Install dependencies
       - name: Install dependencies
         working-directory: ./frontend
         run: npm install
-        
-      # 4. Install dependencies (simple, no drama)
-      - name: Install dependencies
-        run: npm install
 
-      # 5. Build (optional, remove if not needed)
+      # 5. Build Next.js app
       - name: Build
-        run: npm run build --if-present
+        working-directory: ./frontend
+        run: npm run build
 
-      # 6. Test (optional)
+      # 6. Run tests (if any)
       - name: Test
+        working-directory: ./frontend
         run: npm test --if-present
