@@ -34,14 +34,22 @@ console.log('------------------------');
 app.use(helmet());
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests from any localhost port (for development flexibility)
-    const allowed = !origin || /^http:\/\/localhost:\d+$/.test(origin);
-    if (allowed) {
-      callback(null, true);
-    } else {
-      console.warn(`CORS blocked origin: ${origin}`);
-      callback(new Error(`CORS: Origin ${origin} not allowed`));
+    const allowedOrigins = [
+      process.env.FRONTEND_URL, // Vercel frontend
+    ];
+
+    // Allow localhost (for dev)
+    if (!origin || /^http:\/\/localhost:\d+$/.test(origin)) {
+      return callback(null, true);
     }
+
+    // Allow production frontend
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    console.warn(`CORS blocked origin: ${origin}`);
+    callback(new Error(`CORS: Origin ${origin} not allowed`));
   },
   credentials: true,
 }));
