@@ -2,6 +2,9 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Scale, Sparkles } from 'lucide-react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
+
 
 const QUOTES = [
   { text: "Justice delayed is justice denied.", author: "William E. Gladstone" },
@@ -14,12 +17,39 @@ export default function LoadingScreen() {
   const router = useRouter();
   const [quote] = useState(() => QUOTES[Math.floor(Math.random() * QUOTES.length)]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      router.push('/login');
-    }, 3500); // 3.5 seconds for reading and atmosphere
-    return () => clearTimeout(timer);
-  }, [router]);
+useEffect(() => {
+  let isMounted = true;
+
+  const unsubscribe = onAuthStateChanged(auth, (user) => {
+    if (!isMounted) return;
+
+    const role = localStorage.getItem("role") || "citizen";
+
+    setTimeout(() => {
+      if (!isMounted) return;
+
+      if (user) {
+        switch (role) {
+          case "judge":
+            router.replace('/dashboard/judge');
+            break;
+          case "lawyer":
+            router.replace('/dashboard/lawyer');
+            break;
+          default:
+            router.replace('/dashboard/user');
+        }
+      } else {
+        router.replace('/login');
+      }
+    }, 1500);
+  });
+
+  return () => {
+    isMounted = false;
+    unsubscribe();
+  };
+}, [router]);
 
   return (
     <div className="min-h-screen bg-mesh bg-fixed flex flex-col items-center justify-center relative overflow-hidden selection:bg-saffron/30">
